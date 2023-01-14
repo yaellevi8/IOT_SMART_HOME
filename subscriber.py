@@ -18,22 +18,24 @@ root = tk.Tk()
 root.geometry("800x600")
 root.title("Heart Rate Monitor")
 
+
 # Create listbox
 listbox = tk.Listbox(root)
+listbox.config(width=100, height=100, font=("Courier 11", 15), fg="white", bg="brown")
+current_date = datetime.today().strftime('%B %d, %Y')
+listbox.insert(tk.END, "Heart Rate Monitoring on " + current_date + " - Stay Alert for Heart Rate Above 80 BPM")
+listbox.insert(tk.END, "")
 listbox.pack()
-listbox.config(width=100, height=100,font=("calibri",20),fg="white",bg="brown")
-listbox.insert(tk.END, "Heart Rate of "+ str(datetime.today().strftime('%Y-%m-%d')))
-listbox.insert(tk.END, "----------------------------------------------------------------------")
-listbox.insert(tk.END, "Remember - a high heart rate is a heart rate over 80")
-listbox.insert(tk.END, "----------------------------------------------------------------------")
 
 
 # Callback function for incoming messages
 def on_message(client, userdata, message):
     data = json.loads(message.payload.decode())
-    for id, rate in data.items():
+    for id, content in data.items():
+        rate = int(content[0])
+        time = content[1]
         if rate > 80:
-            listbox.insert(tk.END, "Id: " + str(id) + " has a HIGH heart rate: " + str(rate))
+            listbox.insert(tk.END, "ID: " + str(id) + " has a high heart rate: " + str(rate) + " | on time: " + time)
 
 
 client.on_message = on_message
