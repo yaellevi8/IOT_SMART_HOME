@@ -12,17 +12,13 @@ port = 1883
 client.connect(broker_address, port)
 sub_topic = "IOT/FinalProject/HeartRate"
 
-#
-# # Dictionary containing ID and heart rate data
-# data = {}
-
 
 # Generate random heart rate data
-def generate_heart_rate():
-    #for i in range(20):
+def generate_heart_rate(id):
     time.sleep(2)
     current_time = datetime.today().strftime('%H:%M:%S')
-    id = random.randint(100000000, 999999999)
+    if id == 0:
+        id = random.randint(100000000, 999999999)
     rate = random.randint(55, 180)
     data[id] = [rate, current_time]
     return data
@@ -39,5 +35,7 @@ print("Start publishing data to broker ", broker_address)
 while True:
     # Dictionary containing ID and heart rate data
     data = {}
-    data = generate_heart_rate()
+    # Choose specific ID or 0 (execute random)
+    client_id = 0
+    data = generate_heart_rate(client_id)
     send_data(sub_topic, data)
