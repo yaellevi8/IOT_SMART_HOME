@@ -2,6 +2,7 @@ import paho.mqtt.client as mqtt
 import random
 import json
 from datetime import datetime
+import time
 
 # MQTT setup for publisher
 brokers = ["broker.hivemq.com"]
@@ -11,18 +12,19 @@ port = 1883
 client.connect(broker_address, port)
 sub_topic = "IOT/FinalProject/HeartRate"
 
-
-# Dictionary containing ID and heart rate data
-data = {}
+#
+# # Dictionary containing ID and heart rate data
+# data = {}
 
 
 # Generate random heart rate data
 def generate_heart_rate():
-    for i in range(20):
-        current_time = datetime.today().strftime('%H:%M:%S')
-        id = random.randint(10000000, 999999999)
-        rate = random.randint(55, 180)
-        data[id] = [rate, current_time]
+    #for i in range(20):
+    time.sleep(2)
+    current_time = datetime.today().strftime('%H:%M:%S')
+    id = random.randint(100000000, 999999999)
+    rate = random.randint(55, 180)
+    data[id] = [rate, current_time]
     return data
 
 
@@ -32,9 +34,10 @@ def send_data(topic, data):
     client.publish(topic, json_data)
 
 
-# Continuously generate and send data
-# while True:
-
 print("Start publishing data to broker ", broker_address)
-data = generate_heart_rate()
-send_data(sub_topic, data)
+# Continuously generate and send data
+while True:
+    # Dictionary containing ID and heart rate data
+    data = {}
+    data = generate_heart_rate()
+    send_data(sub_topic, data)

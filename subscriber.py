@@ -2,6 +2,8 @@ import paho.mqtt.client as mqtt
 import json
 import tkinter as tk
 from datetime import datetime
+import time
+
 
 # MQTT setup for subscriber
 brokers = ["broker.hivemq.com"]
@@ -33,9 +35,12 @@ def on_message(client, userdata, message):
     data = json.loads(message.payload.decode())
     for id, content in data.items():
         rate = int(content[0])
-        time = content[1]
+        sample_time = content[1]
         if rate > 80:
-            listbox.insert(tk.END, "ID: " + str(id) + " has a high heart rate: " + str(rate) + " | on time: " + time)
+            listbox.insert(tk.END,
+                           "ID: " + str(id) + " has a high heart rate: " + str(rate) + " | on time: " + sample_time)
+        time.sleep(2)
+
 
 
 client.on_message = on_message
