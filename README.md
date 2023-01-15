@@ -1,7 +1,10 @@
 # IOT_SMART_HOME
-Repo for IOT course - HIT
 
-// Control your heart rate! //
+## Smart Heart Measure 
+
+#### Control your heart rate!
+
+IOT course, HIT // Final Project
 
 Served By: 
 
