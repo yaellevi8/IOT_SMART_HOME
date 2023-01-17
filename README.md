@@ -4,7 +4,7 @@
 
 #### Control your heart rate!
 
-IOT course, HIT // Final Project
+IOT course, HIT // Final Project // Semester A, 2023
 
 Served By: 
 
